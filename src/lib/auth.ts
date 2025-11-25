@@ -56,7 +56,12 @@ export interface JWTPayload {
 export class AuthService {
   private static readonly ACCESS_TOKEN_KEY = 'access_token';
   private static readonly REFRESH_TOKEN_KEY = 'refresh_token';
-  private static readonly API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+  private static readonly API_BASE_URL = (() => {
+    const url = process.env.NEXT_PUBLIC_API_URL || '';
+    console.log('🌐 API_BASE_URL initialized:', url);
+    console.log('🌐 process.env.NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
+    return url;
+  })();
 
   static getAccessToken(): string | null {
     if (typeof window === 'undefined') return null;
